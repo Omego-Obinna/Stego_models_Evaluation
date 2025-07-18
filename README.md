@@ -32,14 +32,34 @@ This repository contains the implementation of unified embedding and extraction 
    python3 -m venv myenv
    source myenv/bin/activate
    ```
-3. Install dependencies:
+   Code imports for both `unified_embed.py` and `unified_extract.py`, here is the **complete list of Python packages** that these two scripts depend on:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-   *If no `requirements.txt` is provided, install manually:*
-
+   ### ✅ Core and Standard Library Packages
+   
+   These are included with Python by default:
+   
+   * `os`
+   * `time`
+   * `hashlib`
+   * `re`
+   
+   ### 📦 Third-Party Python Packages
+   
+   These must be installed via `pip`:
+   
+   | Package                                                                              | Purpose                                                                        |
+   | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+   | `opencv-python` (`cv2`)                                                              | Reading, writing, and manipulating image files (for LSB embedding/extraction). |
+   | `numpy`                                                                              | Array manipulation and bit-wise operations.                                    |
+   | `pandas`                                                                             | Data logging, results management, and CSV/table handling.                      |
+   | `matplotlib`                                                                         | Visualization of results (e.g., BER, PSNR, SSIM).                              |
+   | `seaborn`                                                                            | Statistical plotting for presentation and analysis.                            |
+   | `scikit-image` (used as `from skimage.metrics import structural_similarity as ssim`) | Image quality metric (SSIM).                                                   |
+   
+   ---
+   
+   ### 📦 Suggested `pip install` command:
+   
    ```bash
    pip install opencv-python numpy pandas matplotlib seaborn scikit-image
    ```
