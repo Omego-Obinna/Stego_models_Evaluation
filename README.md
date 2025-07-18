@@ -1,6 +1,6 @@
 # Stego_models_Evaluation
 Part 1
-# Hybrid Multichannel Steganography
+# Adversarial Extraction Algorithms (Part 1)
 
 This repository contains the implementation of unified embedding and extraction algorithms for both CMO (Cover Modification) and Hybrid steganography models, as described in *Multichannel Steganography: A Provably Secure Hybrid Steganographic Model*. The directory structure and usage instructions are provided below.
 
