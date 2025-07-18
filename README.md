@@ -2,7 +2,7 @@
 Part 1
 # Adversarial Extraction Algorithms (Part 1)
 
-This repository contains the implementation of unified embedding and extraction algorithms for both CMO (Cover Modification) and Hybrid steganography models, as described in *Multichannel Steganography: A Provably Secure Hybrid Steganographic Model*. The directory structure and usage instructions are provided below.
+This repository contains the implementation of unified embedding and extraction algorithms for both CMO (Cover Modification) and Hybrid steganography models, as described in *Multichannel Steganography: A Provably Secure Hybrid Steganographic Model for Secure Communication*. The directory structure and usage instructions are provided below.
 
 ---
 
@@ -134,6 +134,132 @@ This script will:
 * Ensure `secret_messages.txt` contains at least as many lines as there are cover images.
 * For larger keyspaces in Hybrid extraction, adjust the candidate key generator in `unified_extract_well.py`.
 * To reproduce results exactly, use the provided virtual environment or replicate the `requirements.txt`.
+
+---
+Part 1
+# Adversarial Extraction Algorithms (Part 2)
+
+This repository contains the implementation of unified embedding and extraction algorithms for both CSY (Cover Synthesis) and CSE (Cover Selection), as described in *Multichannel Steganography: A Provably Secure Hybrid Steganographic Model for Secure Communication*. The directory structure and usage instructions are provided below.
+
+Here's a polished **`README.md` instructions block** for your GitHub repository, tailored to the adversarial unified embedding and extraction setup for **CSY (Cover Synthesis)** and **CSE (Cover Selection)**. This includes directory structure, dependencies, and script usage.
+
+---
+
+## 🕵️‍♂️ Adversarial Unified Embedding and Extraction for CSY and CSE
+
+This repository provides a unified framework for adversarial embedding and extraction using **Cover Synthesis (CSY)** and **Cover Selection (CSE)** steganographic models, with evaluation support for bit-error rate (BER), correlation, PSNR, and extraction success.
+
+---
+
+### 📁 Directory Structure
+
+```
+.
+├── cover_library/             # Image pool for CSE cover selection
+├── cover_images/              # Base images used for synthesis or visual comparison
+├── cse_stego/                 # Stego images generated using Cover Selection
+├── csy_stego/                 # Stego images generated via Cover Synthesis (e.g. StyleGAN2)
+├── csv_files/                 # Output CSVs logging metrics per run (BER, correlation, etc.)
+├── plot_after_embedding/      # Evaluation plots: imperceptibility (PSNR, SSIM)
+├── plots_after_extraction/    # Extraction performance plots: BER, correlation, success rate
+├── stego_images/              # Final stego images from both pipelines
+├── stylegan2-pytorch/         # Pre-trained GAN model and related architecture for CSY
+├── myenv/                     # Python virtual environment (optional local setup)
+├── resnet_secret_regressor.pth  # Trained regression model (ResNet18) for CSY secret extraction
+├── unified_embedding.py       # Embeds secrets using CSY or CSE schemes
+├── unified_extraction.py      # Adversarial extraction routine for both CSY and CSE
+├── resnet_regression_train.py # Script to train the regression model for CSY extraction
+```
+
+---
+
+### ⚙️ Setup Instructions
+
+1. **Clone the repository and navigate into it:**
+
+   ```bash
+   git clone https://github.com/your-username/hybrid-csy-cse-stego.git
+   cd hybrid-csy-cse-stego
+   ```
+
+2. **Create and activate virtual environment (optional but recommended):**
+
+   ```bash
+   python -m venv myenv
+   source myenv/bin/activate  # On Windows: myenv\Scripts\activate
+   ```
+
+3. **Install required packages:**
+
+   ```bash
+   pip install opencv-python numpy pandas matplotlib seaborn scikit-image torch torchvision
+   ```
+
+4. **Download and place your pretrained StyleGAN2 weights** (if using CSY) and the trained regression model `resnet_secret_regressor.pth` into their respective folders.
+
+---
+
+### 🚀 Usage Instructions
+
+#### 1. Unified Embedding
+
+Run the following to embed secrets using either **CSY** or **CSE**:
+
+```bash
+python unified_embedding.py --mode [csy|cse] --input_dir cover_library/ --output_dir csy_stego/ --secret_file secrets.txt
+```
+
+Options:
+
+* `--mode`: `csy` for synthesis using StyleGAN, `cse` for cover selection.
+* `--input_dir`: Path to base or candidate images (used in `cse`).
+* `--secret_file`: File containing plaintext secrets (one per line).
+* `--output_dir`: Where stego images will be saved.
+
+#### 2. Unified Extraction (Adversary Simulation)
+
+Run adversarial extraction against both models:
+
+```bash
+python unified_extraction.py --mode [csy|cse] --stego_dir csy_stego/ --model_path resnet_secret_regressor.pth --output_csv csv_files/extract_metrics.csv
+```
+
+Options:
+
+* `--mode`: `csy` or `cse`
+* `--stego_dir`: Folder of stego images to extract from.
+* `--model_path`: Only required for `csy` — pre-trained ResNet regression head.
+* `--output_csv`: Location to save extracted results and metrics.
+
+#### 3. (Optional) Train Regression Model for CSY
+
+```bash
+python resnet_regression_train.py --train_dir csy_stego/ --secrets_csv train_labels.csv --epochs 100 --output_model resnet_secret_regressor.pth
+```
+
+---
+
+### 📊 Output
+
+After running embedding and extraction:
+
+* Visual plots are saved under `plot_after_embedding/` and `plots_after_extraction/`.
+* Extraction results include BER, correlation, PSNR, and recovery success rates.
+
+---
+
+### 🔍 Citation
+
+If you use this framework for publication, please cite:
+
+```
+@article{omego2025hybrid,
+  title={Multichannel Steganography: A Provably Secure Hybrid Steganographic Model},
+  author={Omego, Obinna and Bosy, Michal},
+  journal={arXiv preprint arXiv:2401.XXXXX},
+  year={2025}
+}
+```
 
 ---
 
